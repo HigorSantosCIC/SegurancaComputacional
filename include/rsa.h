@@ -33,7 +33,7 @@ class RSA {
    *  r = random nonce
    *  X = (m || 00...0) XOR H(r) // pad m with zeros
    *  Y = r XOR H(X)
-   *  output X || Y
+   *  output X || Y 
    * */
   big_int OAEP_Encode(const std::string& original_message);
 

@@ -1,25 +1,29 @@
+// Higor Gabriel - 170012387
+// Fernando Ferreira - 170057950
+
 #include "keys.h"
 #include "rsa.h"
 using namespace std;
 
-int main(void) {
+int main(void)
+{
   RSA rsa;
-
   ifstream f("message.txt");
-  if (!f.is_open()) {
+  if (!f.is_open())
+  {
     throw invalid_argument("Não foi possivel abrir o arquivo");
   }
   const auto msg = string(istreambuf_iterator<char>(f),
-                     istreambuf_iterator<char>());
+                          istreambuf_iterator<char>());
 
-  cout << "Messangem enviada por Ana: " << msg << "\n\n";
+  cout << "Mensagem enviada por Ana: " << msg << "\n\n";
 
-  //key1 = public key -- key2 = private key
-  const auto& [key1, key2] = rsa.create_key_pair();
-  const auto pk = make_pair(key1, key2);
+  //key1 = public key
+  //key2 = private key
+  const auto &[key1, key2] = rsa.create_key_pair();
 
   big_int cipher_text = rsa.encryptMessage(key1, msg);
-  cout << "Mensagem criptografada RSA-OAEP: "  << hex << cipher_text << dec << "\n\n";
+  cout << "Mensagem criptografada RSA-OAEP: " << hex << cipher_text << dec << "\n\n";
 
   const auto decrypted_message = rsa.decryptMessage(key2, cipher_text);
   cout << "Mensagem recebida por Bob: " << decrypted_message << "\n\n";
